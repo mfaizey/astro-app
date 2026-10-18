@@ -1,0 +1,153 @@
+---
+import Base from "../layouts/Base.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Marquee from "../components/Marquee.astro";
+import CTABand from "../components/CTABand.astro";
+import { engagements, ticker, process } from "../data/site";
+
+const faqs = [
+  {
+    q: "Do you really take equity instead of fees?",
+    a: "Sometimes. For venture builds and long partnerships we take a mix — enough fee to keep the pod honest, enough equity to keep us in the same boat. Pure-fee work still exists for brand systems and fixed-scope builds.",
+  },
+  {
+    q: "How fast can a pod be operational?",
+    a: "Two weeks from signed scope to first shipping. The diagnosis phase runs in parallel with pod assembly, so nothing waits on paperwork.",
+  },
+  {
+    q: "What happens when the engagement ends?",
+    a: "That is the point. You get the systems, the documentation, the dashboards and the training to run everything yourself. Roughly a third of our clients then hire the pod lead full time.",
+  },
+  {
+    q: "Will you work with a competitor?",
+    a: "Not in the same category for the duration of an engagement, and never with confidential information crossing pods. Every pod is a hard information boundary.",
+  },
+  {
+    q: "What size of company do you work with?",
+    a: "Pre-seed to Series C. Venture builds start at an idea and a founder; equity partnerships start at a company with traction and a distribution problem it cannot solve internally.",
+  },
+];
+---
+
+<Base
+  title="Engagements"
+  description="Four ways to work with UNFAIR: Venture Build, Growth Pod, Brand Systems and Equity Partnership. Equity over invoices."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Engagements</span>
+      <h1 class="h1" style="margin-top: 26px; max-width: 16ch" data-reveal>
+        Four ways in.<br /><span class="acid">None of them go nowhere.</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="lead" data-reveal>
+          Every model is built around one rule: our incentives have to be legible to
+          anyone reading your cap table. We pick the structure that makes us
+          dangerous on your behalf.
+        </p>
+        <div data-reveal style="--delay:.1s">
+          <p class="mono muted">Typical start</p>
+          <p class="mono muted" style="margin-top: 8px">14 days from scope</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        engagements.map((e) => (
+          <article class="engagement" data-reveal>
+            <div class="engagement__index">
+              <span class="big-number">{e.index}</span>
+            </div>
+            <div class="engagement__body">
+              <span class="eyebrow">{e.model} · {e.duration}</span>
+              <h2 class="h2" style="margin-top: 20px">{e.title}</h2>
+              <p class="lead" style="margin-top: 18px; max-width: 60ch">{e.body}</p>
+              <ul class="marker-list" style="margin-top: 30px">
+                {e.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <Marquee items={ticker} speed="44s" />
+
+  <section class="section section--alt">
+    <div class="container">
+      <SectionHead
+        eyebrow="The process"
+        title="Four phases. No status meetings."
+        copy="Diagnose, design, deploy, hand over. You always know which phase you are in and what number it is supposed to move."
+      />
+      <div class="grid grid--4">
+        {
+          process.map((p, i) => (
+            <div class="card card--flat" data-reveal style={`--delay:${i * 0.07}s`}>
+              <div class="big-number">{p.n}</div>
+              <h3 class="h3" style="margin-top: 24px">{p.title}</h3>
+              <p class="muted" style="margin-top: 12px">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div data-reveal>
+        <span class="eyebrow">Straight answers</span>
+        <h2 class="h2" style="margin-top: 22px">Questions we get before every signature.</h2>
+        <p class="muted" style="margin-top: 20px; max-width: 40ch">
+          If yours isn't here, ask it directly — we answer in plain language, not
+          proposals.
+        </p>
+        <a class="btn btn--ghost" href="/contact" style="margin-top: 28px">
+          Ask us anything <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="faq" data-reveal style="--delay:.1s">
+        {
+          faqs.map((f, i) => (
+            <details open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Pick a model, or tell us the problem and we'll pick one."
+    copy="One call is usually enough to know which engagement fits — and enough for us to say no if none of them do."
+    secondary={{ label: "Read the manifesto", href: "/manifesto" }}
+  />
+</Base>
+
+<style>
+  .engagement {
+    display: grid;
+    grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 72px);
+    padding-block: clamp(44px, 6vw, 88px);
+    border-top: 1px solid var(--line);
+  }
+
+  .engagement:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 860px) {
+    .engagement {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  copy?: string;
+}
+
+const { eyebrow, title, copy } = Astro.props;
+---
+
+<div class="section-head">
+  <div data-reveal>
+    <span class="eyebrow">{eyebrow}</span>
+    <h2 class="h2" style="margin-top: 20px">{title}</h2>
+  </div>
+  {
+    copy && (
+      <p class="lead muted" data-reveal style="--delay: .1s">
+        {copy}
+      </p>
+    )
+  }
+</div>

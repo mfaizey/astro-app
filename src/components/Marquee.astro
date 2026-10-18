@@ -1,0 +1,26 @@
+---
+interface Props {
+  items: string[];
+  variant?: "default" | "acid";
+  speed?: string;
+}
+
+const { items, variant = "default", speed = "38s" } = Astro.props;
+const doubled = [...items, ...items];
+---
+
+<div
+  class:list={["marquee", variant === "acid" && "marquee--acid"]}
+  style={`--speed: ${speed}`}
+  aria-hidden="true"
+>
+  {
+    [0, 1].map(() => (
+      <div class="marquee__track">
+        {doubled.map((item) => (
+          <span class="marquee__item">{item}</span>
+        ))}
+      </div>
+    ))
+  }
+</div>

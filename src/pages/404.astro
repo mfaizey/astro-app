@@ -1,0 +1,20 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page not found" description="This page doesn't exist — head back to the home page.">
+  <section class="page-hero" style="min-height: 70vh; display: flex; align-items: center">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Error 404</span>
+      <h1 class="display acid" style="margin-top: 24px" data-reveal>Lost</h1>
+      <p class="lead" style="margin-top: 24px; max-width: 46ch" data-reveal>
+        This page doesn't exist. Either it was built and killed, or we never got
+        around to it — both happen here.
+      </p>
+      <div class="hero__actions" data-reveal>
+        <a class="btn" href="/">Back home <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="/work">See the work</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  copy?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+
+const {
+  eyebrow = "Next step",
+  title,
+  copy,
+  primary = { label: "Start a build", href: "/contact" },
+  secondary = { label: "See the work", href: "/work" },
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container">
+    <span class="eyebrow" data-reveal>{eyebrow}</span>
+    <h2 class="h1" style="margin-top: 24px; max-width: 16ch" data-reveal>
+      {title}
+    </h2>
+    {
+      copy && (
+        <p class="lead" style="margin-top: 24px; max-width: 52ch" data-reveal>
+          {copy}
+        </p>
+      )
+    }
+    <div class="hero__actions" data-reveal>
+      <a class="btn btn--dark" href={primary.href}>
+        {primary.label} <span class="arrow">→</span>
+      </a>
+      <a
+        class="btn"
+        href={secondary.href}
+        style="--btn-bg: transparent; --btn-fg: #0a0b06; border-color: rgba(10,11,6,.35)"
+      >
+        {secondary.label}
+      </a>
+    </div>
+  </div>
+</section>

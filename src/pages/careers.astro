@@ -1,0 +1,112 @@
+---
+import Base from "../layouts/Base.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Marquee from "../components/Marquee.astro";
+import CTABand from "../components/CTABand.astro";
+import { roles, benefits, ticker } from "../data/site";
+---
+
+<Base
+  title="Careers"
+  description="Join UNFAIR — open roles across brand, growth engineering, product design and data. Profit share, venture equity and four-day build weeks."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Careers</span>
+      <h1 class="h1" style="margin-top: 26px; max-width: 17ch" data-reveal>
+        Come build things<br /><span class="acid">you'll want to sign.</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="lead" data-reveal>
+          We hire people who own outcomes, not tasks. You will ship in your first
+          fortnight, carry equity in the work you touch, and never sit in a status
+          meeting that could have been a decision.
+        </p>
+        <div data-reveal style="--delay:.1s">
+          <p class="mono muted">Open roles</p>
+          <p class="mono muted" style="margin-top: 8px">{roles.length} positions · 3 studios</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHead
+        eyebrow="Open roles"
+        title="Six seats open right now."
+        copy="Nothing here fits? Send an open application anyway — the collective hires ahead of the org chart."
+      />
+
+      <div class="rows">
+        {
+          roles.map((r, i) => (
+            <a class="row" href="/contact" data-reveal style={`--delay:${i * 0.05}s`}>
+              <span class="row__num">{String(i + 1).padStart(2, "0")}</span>
+              <span>
+                <span class="row__title">{r.title}</span>
+                <span class="mono muted" style="display: block; margin-top: 10px">{r.team}</span>
+              </span>
+              <span class="row__meta">
+                {r.location}
+                <br />
+                {r.type}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="card" style="margin-top: clamp(36px, 5vw, 64px)" data-reveal>
+        <div class="split" style="gap: clamp(20px, 3vw, 48px)">
+          <div>
+            <span class="mono acid">Open application</span>
+            <h3 class="h3" style="margin-top: 14px">
+              Nothing that fits? Pitch us anyway.
+            </h3>
+          </div>
+          <div>
+            <p class="muted">
+              Tell us the last thing you shipped, the number it moved and what you'd
+              have done differently. We read every one — and we answer all of them.
+            </p>
+            <a class="btn" href="/contact" style="margin-top: 22px">
+              Apply in the open <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <SectionHead
+        eyebrow="What you get"
+        title="Compensation that behaves like our thesis."
+        copy="We hold equity in what we build, so you should too. The package is designed around ownership, not free snacks."
+      />
+      <div class="grid grid--4">
+        {
+          benefits.map((b, i) => (
+            <div class="card card--flat" data-reveal style={`--delay:${i * 0.07}s`}>
+              <span class="mono acid">0{i + 1}</span>
+              <h3 class="h4" style="margin-top: 18px">{b.title}</h3>
+              <p class="muted" style="margin-top: 12px">{b.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Marquee items={ticker} speed="44s" />
+
+  <CTABand
+    eyebrow="Hiring managers, look away"
+    title="Everyone else: the door's open."
+    copy="Three studios, remote-friendly, and a hiring process that ends in a decision inside two weeks — not a six-round audition."
+    primary={{ label: "Apply now", href: "/contact" }}
+    secondary={{ label: "Read our manifesto", href: "/manifesto" }}
+  />
+</Base>

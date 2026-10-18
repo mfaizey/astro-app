@@ -1,0 +1,74 @@
+---
+import Base from "../../layouts/Base.astro";
+import WorkCard from "../../components/WorkCard.astro";
+import Marquee from "../../components/Marquee.astro";
+import CTABand from "../../components/CTABand.astro";
+import { cases, clients } from "../../data/site";
+---
+
+<Base
+  title="Work"
+  description="Case studies from UNFAIR — venture builds, embedded growth pods and brand systems for companies that wanted an edge, not a campaign."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Selected work</span>
+      <h1 class="h1" style="margin-top: 26px; max-width: 15ch" data-reveal>
+        Companies we <span class="acid">built</span>, not campaigns we ran.
+      </h1>
+      <div class="hero__meta">
+        <p class="lead" data-reveal>
+          Six of forty-seven ventures. Every engagement below shipped something
+          into the market — a product, a category, a distribution engine — and left
+          the team able to run it without us.
+        </p>
+        <div data-reveal style="--delay:.1s">
+          <p class="mono muted">2016 — 2026</p>
+          <p class="mono muted" style="margin-top: 8px">9 exits · $1.2B EV created</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {cases.map((item, i) => <WorkCard item={item} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <Marquee items={clients} speed="52s" />
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <span class="eyebrow">What the numbers have in common</span>
+          <h2 class="h2" style="margin-top: 22px">Every result is a business result.</h2>
+        </div>
+        <div data-reveal style="--delay:.1s">
+          <p class="lead muted">
+            Impressions, reach and "brand lift" do not appear on this page, because
+            they do not appear on your P&amp;L. We report on pipeline, activation,
+            contribution margin, CAC and the value of the company — the numbers that
+            survive a board meeting.
+          </p>
+          <ul class="marker-list" style="margin-top: 32px">
+            <li>Blended and channel-level CAC, measured weekly</li>
+            <li>Activation and retention cohorts from day one</li>
+            <li>Contribution margin per market, per product line</li>
+            <li>Enterprise value and raise readiness at every stage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="Your turn"
+    title="Bring us the problem everyone else called impossible."
+    copy="We take on three new ventures a quarter. If the fit is wrong, we'll tell you in the first call and point you somewhere better."
+    secondary={{ label: "How we engage", href: "/engagements" }}
+  />
+</Base>

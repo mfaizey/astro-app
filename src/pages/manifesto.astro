@@ -1,0 +1,134 @@
+---
+import Base from "../layouts/Base.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Marquee from "../components/Marquee.astro";
+import CTABand from "../components/CTABand.astro";
+import { beliefs, ticker, stats } from "../data/site";
+---
+
+<Base
+  title="Manifesto"
+  description="UNFAIR is a collective, not an agency. Six beliefs about ownership, speed, distribution and leaving the engine behind."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Manifesto</span>
+      <h1 class="h1" style="margin-top: 26px; max-width: 18ch" data-reveal>
+        It's not an agency.<br /><span class="acid">It never was.</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="lead" data-reveal>
+          An agency sells hours and hopes the invoice clears. We are 212 operators
+          who build companies, take ownership and leave before we become
+          necessary. This is what we believe, in order.
+        </p>
+        <div data-reveal style="--delay:.1s">
+          <p class="mono muted">Founded</p>
+          <p class="mono muted" style="margin-top: 8px">London, 2016</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--4" style="margin-bottom: clamp(48px, 7vw, 100px)">
+        {
+          stats.map((s, i) => (
+            <div class="stat" data-reveal style={`--delay:${i * 0.08}s`}>
+              <div
+                class="stat__value acid"
+                data-count={s.value}
+                data-prefix={s.prefix ?? ""}
+                data-suffix={s.suffix ?? ""}
+              >
+                {s.prefix ?? ""}{s.value}{s.suffix ?? ""}
+              </div>
+              <div class="stat__label">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+
+      {
+        beliefs.map((b) => (
+          <article class="belief" data-reveal>
+            <div class="belief__n">
+              <span class="big-number">{b.n}</span>
+            </div>
+            <div>
+              <h2 class="h2">{b.title}</h2>
+              <p class="lead muted" style="margin-top: 18px; max-width: 66ch">{b.body}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <Marquee items={ticker} speed="44s" />
+
+  <section class="section section--alt">
+    <div class="container">
+      <SectionHead
+        eyebrow="The collective"
+        title="212 people. Zero account managers."
+        copy="Strategists, engineers, designers, media buyers and data scientists — organised into pods, not departments."
+      />
+      <div class="grid grid--3">
+        <div class="card" data-reveal>
+          <span class="mono acid">Structure</span>
+          <h3 class="h3" style="margin-top: 16px">Pods, not departments</h3>
+          <p class="muted" style="margin-top: 12px">
+            Every pod carries one client outcome end to end. No handoffs, no
+            relay races, no discipline silos arguing over whose metric moved.
+          </p>
+        </div>
+        <div class="card" data-reveal style="--delay:.08s">
+          <span class="mono acid">Ownership</span>
+          <h3 class="h3" style="margin-top: 16px">Profit share and venture equity</h3>
+          <p class="muted" style="margin-top: 12px">
+            Permanent members share the profits. Members on venture builds carry
+            personal equity in what they ship. Nobody here is just billing time.
+          </p>
+        </div>
+        <div class="card" data-reveal style="--delay:.16s">
+          <span class="mono acid">Boundary</span>
+          <h3 class="h3" style="margin-top: 16px">Hard information walls</h3>
+          <p class="muted" style="margin-top: 12px">
+            Pod is a security boundary. We never run two companies against each
+            other in the same category, and we will tell you when we are wrong.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="If this reads like your kind of thing"
+    title="Then you're probably our kind of company."
+    copy="Founders, operators and makers who want ownership rather than a vendor — start here."
+    secondary={{ label: "Join the collective", href: "/careers" }}
+  />
+</Base>
+
+<style>
+  .belief {
+    display: grid;
+    grid-template-columns: minmax(0, 0.28fr) minmax(0, 1fr);
+    gap: clamp(20px, 5vw, 64px);
+    align-items: start;
+    padding-block: clamp(36px, 5vw, 68px);
+    border-top: 1px solid var(--line);
+  }
+
+  .belief:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 860px) {
+    .belief {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

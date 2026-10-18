@@ -1,0 +1,31 @@
+---
+import type { Case } from "../data/site";
+
+interface Props {
+  item: Case;
+  index?: number;
+}
+
+const { item, index = 0 } = Astro.props;
+---
+
+<a
+  class="work-card"
+  href={`/work/${item.slug}`}
+  style={`--accent: ${item.accent}; --delay: ${index * 0.07}s`}
+  data-reveal
+>
+  <div class="work-card__visual">
+    <span class="work-card__tag">{item.engagement}</span>
+    <span class="work-card__word">{item.client}</span>
+  </div>
+  <div class="work-card__body">
+    <p class="mono muted">{item.sector} · {item.year}</p>
+    <h3 class="h3" style="margin-top: 12px">{item.tagline}</h3>
+    <p class="muted" style="margin-top: 12px">{item.summary}</p>
+    <div class="work-card__foot">
+      <span>{item.results[0].value} {item.results[0].label}</span>
+      <span style="margin-left: auto" class="acid">View case →</span>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,56 @@
+---
+import { site, nav } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>{site.tagline}</h4>
+        <p class="lead" style="max-width: 34ch">
+          We co-build companies, embed growth pods and carry the risk. If the
+          outcome isn't unfair, we haven't done our job.
+        </p>
+        <p style="margin-top: 22px">
+          <a class="link-arrow" href={`mailto:${site.email}`}>{site.email} →</a>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Studios</h4>
+        <ul>
+          {site.locations.map((l) => <li><a href="/contact">{l}</a></li>)}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <ul>
+          {site.social.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-wordmark" aria-hidden="true">{site.name}</div>
+
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} {site.legal}</span>
+      <span>Built to be outgrown</span>
+      <span>Reg. 14829301</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,112 @@
+---
+import Base from "../../layouts/Base.astro";
+import CTABand from "../../components/CTABand.astro";
+import { cases, type Case } from "../../data/site";
+
+export function getStaticPaths() {
+  return cases.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+interface Props {
+  item: Case;
+}
+
+const { item } = Astro.props;
+const index = cases.findIndex((c) => c.slug === item.slug);
+const next = cases[(index + 1) % cases.length];
+---
+
+<Base title={`${item.client} — ${item.tagline}`} description={item.summary}>
+  <section class="page-hero">
+    <div class="container">
+      <a class="link-arrow" href="/work" data-reveal>← All work</a>
+
+      <div style="margin-top: clamp(32px, 5vw, 64px)">
+        <span class="eyebrow" data-reveal>{item.engagement} · {item.year}</span>
+        <h1 class="display" style="margin-top: 24px; color: var(--accent, var(--acid))" data-reveal>
+          {item.client}
+        </h1>
+        <p class="h2" style="margin-top: clamp(20px, 3vw, 36px); max-width: 20ch" data-reveal>
+          {item.tagline}
+        </p>
+      </div>
+
+      <div class="kicker-stat" style="margin-top: clamp(40px, 5vw, 72px); padding-top: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line)">
+        {
+          item.results.map((r, i) => (
+            <div data-reveal style={`--delay:${i * 0.08}s`}>
+              <div class="stat__value acid">{r.value}</div>
+              <div class="stat__label">{r.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div data-reveal>
+        <span class="eyebrow">The brief</span>
+        <dl class="grid" style="margin-top: 26px; gap: 0">
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <dt class="mono muted">Client</dt>
+            <dd class="h4">{item.client}</dd>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <dt class="mono muted">Sector</dt>
+            <dd class="h4">{item.sector}</dd>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <dt class="mono muted">Engagement</dt>
+            <dd class="h4">{item.engagement}</dd>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <dt class="mono muted">Year</dt>
+            <dd class="h4">{item.year}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div>
+        <div data-reveal>
+          <span class="eyebrow">The constraint</span>
+          <p class="lead" style="margin-top: 22px">{item.challenge}</p>
+        </div>
+
+        <div data-reveal style="margin-top: clamp(40px, 5vw, 72px)">
+          <span class="eyebrow">What we did</span>
+          <ul class="marker-list" style="margin-top: 26px">
+            {item.approach.map((step) => <li>{step}</li>)}
+          </ul>
+        </div>
+
+        <div
+          class="card"
+          style="margin-top: clamp(40px, 5vw, 72px)"
+          data-reveal
+        >
+          <span class="mono acid">Outcome</span>
+          <p class="lead" style="margin-top: 16px">{item.outcome}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight section--alt">
+    <div class="container">
+      <div class="row" style="border-top: 0; align-items: center">
+        <span class="row__num">NEXT</span>
+        <a class="row__title" href={`/work/${next.slug}`}>{next.client} — {next.tagline}</a>
+        <span class="row__meta">→ View case</span>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="Start yours"
+    title="Same starting point as everyone above: one honest conversation."
+    copy="Two weeks from now you'll have a diagnosis, a plan and a pod — or an honest no."
+    secondary={{ label: "See all work", href: "/work" }}
+  />
+</Base>

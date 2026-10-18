@@ -1,0 +1,145 @@
+---
+import Base from "../layouts/Base.astro";
+import { site, engagements } from "../data/site";
+---
+
+<Base
+  title="Contact"
+  description="Start a build with UNFAIR — tell us what you're building and you'll have a diagnosis, a plan and a pod within two weeks, or an honest no."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Contact</span>
+      <h1 class="h1" style="margin-top: 26px; max-width: 15ch" data-reveal>
+        Tell us what you're <span class="acid">building.</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="lead" data-reveal>
+          One conversation is enough for us to know if there's an edge worth
+          building. If there isn't, we'll say so and point you at someone better.
+        </p>
+        <div data-reveal style="--delay:.1s">
+          <p class="mono muted">Response time</p>
+          <p class="mono muted" style="margin-top: 8px">Under 48 hours, always</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div data-reveal>
+        <span class="eyebrow">Direct lines</span>
+
+        <div class="grid" style="margin-top: 30px; gap: 0">
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <span class="mono muted">New business</span>
+            <a class="h4" href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <span class="mono muted">Talent</span>
+            <a class="h4" href="mailto:talent@unfair.collective">talent@unfair.collective</a>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <span class="mono muted">Press</span>
+            <a class="h4" href="mailto:press@unfair.collective">press@unfair.collective</a>
+          </div>
+          <div class="row" style="grid-template-columns: minmax(0,1fr); gap: 6px">
+            <span class="mono muted">Studios</span>
+            <span class="h4">{site.locations.join(" · ")}</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: clamp(32px, 4vw, 52px)">
+          <span class="mono acid">What happens next</span>
+          <ol class="marker-list" style="margin-top: 18px; counter-reset: step">
+            <li>We reply within 48 hours — a person, not an autoresponder.</li>
+            <li>A 45-minute call with the operators who would run the pod.</li>
+            <li>Two weeks of diagnosis, or an honest no on the spot.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div data-reveal style="--delay:.1s">
+        <form class="form" id="contact-form" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required placeholder="Ada Lovelace" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="ada@company.com" />
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization" placeholder="Company or project" />
+            </div>
+            <div class="field">
+              <label for="model">Engagement</label>
+              <select id="model" name="model">
+                <option value="">Not sure yet</option>
+                {engagements.map((e) => <option value={e.slug}>{e.title}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="budget">Budget range</label>
+            <select id="budget" name="budget">
+              <option value="">Prefer to discuss</option>
+              <option>Under $50K</option>
+              <option>$50K – $150K</option>
+              <option>$150K – $500K</option>
+              <option>$500K+</option>
+              <option>Equity / hybrid</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">What are you building?</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              placeholder="The problem, where you are now, and the number you need to move."></textarea>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:center">
+            <button class="btn" type="submit">
+              Send it <span class="arrow">→</span>
+            </button>
+            <span class="form__note">No decks required. Plain text is fine.</span>
+          </div>
+        </form>
+
+        <div class="form-success" id="form-success" role="status" aria-live="polite">
+          <span class="mono acid">Message received</span>
+          <h3 class="h2" style="margin-top: 16px">We'll reply within 48 hours.</h3>
+          <p class="muted" style="margin-top: 14px">
+            Something you need sooner? Call {site.phone} — someone picks up.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    const success = document.getElementById("form-success");
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      form.style.display = "none";
+      success?.classList.add("is-visible");
+      success?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  </script>
+</Base>
